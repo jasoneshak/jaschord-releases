@@ -295,13 +295,13 @@ html{scroll-padding-top:84px}
   </li>
   <li class="card">
    <h3 data-ar="أرسل بياناتك">Submit your details</h3>
-   <p data-ar="أدخل البريد الإلكتروني الذي سيصلك عليه الترخيص، والاسم أو رقم الموبايل الذي تم التحويل منه. ويمكنك إرفاق لقطة شاشة للتحويل.">Enter the email address that will receive your license, and the name or mobile number the transfer was sent from. You can also attach a screenshot of the transfer.</p>
+   <p data-ar="أدخل البريد الإلكتروني الذي سيصلك عليه الترخيص، والاسم أو رقم الموبايل الذي تم التحويل منه، وأرفق لقطة شاشة للتحويل.">Enter the email address that will receive your license, the name or mobile number the transfer was sent from, and attach a screenshot of the transfer.</p>
    <form id="egForm" action="https://formsubmit.co/1902815714b61a152ac37ac367273afc" method="POST" enctype="multipart/form-data">
     <label><span data-ar="البريد الإلكتروني">Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
     <label><span data-ar="اسم أو رقم موبايل صاحب التحويل">Name or mobile number of the sender</span><input type="text" name="payer" required placeholder="01xxxxxxxxx"></label>
     <input type="hidden" name="plan" id="egPlan" value="Monthly">
     <p class="eg-sel"><span data-ar="الخطة المختارة:">Selected plan:</span> <b id="egSelV"></b></p>
-    <label><span data-ar="لقطة شاشة للتحويل (اختياري)">Screenshot of the transfer (optional)</span><input type="file" name="screenshot" id="egFile" accept="image/*"></label>
+    <label><span data-ar="لقطة شاشة للتحويل">Screenshot of the transfer</span><input type="file" name="screenshot" id="egFile" accept="image/*" required></label>
     <input type="hidden" name="amount_egp" id="egAmount" value="">
     <input type="hidden" name="promo_code" id="egPromoField" value="JASCHORD26">
     <input type="hidden" name="_subject" value="JasChord - manual payment (Egypt)">
