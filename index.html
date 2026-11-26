@@ -157,10 +157,10 @@ html{scroll-padding-top:84px}
 .payopts{max-width:640px;margin:30px auto 0}
 .payopts .lab{margin-bottom:12px}
 .po-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.po{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:14px 10px;border-radius:14px;border:1px solid var(--bd);background:var(--glass);text-decoration:none;color:var(--tx);transition:transform .15s,border-color .15s}
-.po:hover{transform:translateY(-1px);border-color:rgba(34,211,238,.55)}
-.po b{font-size:16px;font-weight:700}
-.po small{font-size:12.5px;color:var(--mu)}
+.po{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:14px 10px;border-radius:14px;border:1px solid transparent;background:var(--grad);text-decoration:none;color:#07080d;box-shadow:0 8px 24px rgba(34,211,238,.14);transition:transform .15s,filter .15s}
+.po:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.po b{font-size:16px;font-weight:800}
+.po small{font-size:12.5px;font-weight:600;color:rgba(7,8,13,.68)}
 @media(max-width:520px){.po-row{gap:8px}.po{padding:12px 6px}.po b{font-size:14px}.po small{font-size:11.5px}}
 @media(max-width:520px){.hero .cta{display:none}.payopts{margin-top:24px}.navr{gap:10px}nav ul a.btn{padding:9px 13px}.logo{height:32px}}
 </style>
