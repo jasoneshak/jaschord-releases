@@ -296,7 +296,7 @@ html{scroll-padding-top:84px}
   <li class="card">
    <h3 data-ar="أرسل بياناتك">Submit your details</h3>
    <p data-ar="أدخل البريد الإلكتروني الذي سيصلك عليه الترخيص، والاسم أو رقم الموبايل الذي تم التحويل منه. ويمكنك إرفاق لقطة شاشة للتحويل.">Enter the email address that will receive your license, and the name or mobile number the transfer was sent from. You can also attach a screenshot of the transfer.</p>
-   <form id="egForm" action="https://formsubmit.co/" method="POST" enctype="multipart/form-data">
+   <form id="egForm" action="https://formsubmit.co/1902815714b61a152ac37ac367273afc" method="POST" enctype="multipart/form-data">
     <label><span data-ar="البريد الإلكتروني">Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
     <label><span data-ar="اسم أو رقم موبايل صاحب التحويل">Name or mobile number of the sender</span><input type="text" name="payer" required placeholder="01xxxxxxxxx"></label>
     <input type="hidden" name="plan" id="egPlan" value="Monthly">
@@ -373,7 +373,6 @@ html{scroll-padding-top:84px}
  // Promo ends end-of-day 30 Nov 2026, Cairo time (UTC+2) = 2026-11-30T22:00:00Z
  var promoOn = Date.now() < Date.UTC(2026,10,30,22,0,0);
  var eg = document.getElementById('egypt'), f = document.getElementById('egForm');
- var rc=['Jason.eshak26','gmail.com']; f.action='https://formsubmit.co/'+rc[0]+'\u0040'+rc[1];
  eg.className = promoOn ? 'promo-on' : 'promo-off';
  if(!promoOn) document.getElementById('egPromoField').value='';
  function amount(){ var a = f.plan.value==='Annual'; return a ? (promoOn?2750:5500) : (promoOn?275:550); }
