@@ -163,6 +163,16 @@ html{scroll-padding-top:84px}
 .po small{font-size:12.5px;font-weight:600;color:rgba(7,8,13,.68)}
 @media(max-width:520px){.po-row{gap:8px}.po{padding:12px 6px}.po b{font-size:14px}.po small{font-size:11.5px}}
 @media(max-width:520px){.hero .cta{display:none}.payopts{margin-top:24px}.navr{gap:10px}nav ul a.btn{padding:9px 13px}.logo{height:32px}}
+.eg-pickl{color:var(--mu);font-size:14px;font-weight:600;margin-bottom:10px}
+.eg-pickl+.eg-plans{margin-top:0}
+.eg .pick{cursor:pointer;position:relative;transition:border-color .15s,transform .15s}
+.eg .pick:hover{transform:translateY(-1px);border-color:rgba(34,211,238,.5)}
+.eg .pick.sel{border:1px solid transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,var(--grad) border-box}
+.eg .pick::after{content:"";position:absolute;top:18px;inset-inline-end:18px;width:24px;height:24px;border-radius:50%;border:2px solid var(--bd)}
+.eg .pick.sel::after{content:"\2713";display:grid;place-items:center;background:var(--grad);border-color:transparent;color:#07080d;font-weight:800;font-size:14px;font-family:Inter,sans-serif}
+.eg .tag{position:relative;z-index:1}
+.eg-sel{padding:12px 16px;border:1px solid var(--bd);background:var(--glass);border-radius:12px;color:var(--mu);font-size:15px}
+.eg-sel b{color:var(--tx)}
 </style>
 </head>
 <body>
@@ -257,14 +267,15 @@ html{scroll-padding-top:84px}
 
  <div class="promo eg-on" data-ar="تم تطبيق كود <b>JASCHORD26</b> تلقائيًا على أول دفعة &middot; ساري حتى 30 نوفمبر 2026">Code <b>JASCHORD26</b> is applied automatically to your first payment &middot; valid until 30 November 2026</div>
 
- <div class="eg-plans">
-  <div class="card plan">
+ <p class="eg-pickl" data-ar="اختر الخطة">Select your plan</p>
+ <div class="eg-plans" role="radiogroup">
+  <div class="card plan pick sel" role="radio" tabindex="0" aria-checked="true" data-plan="Monthly">
    <h3 data-ar="شهري">Monthly</h3>
    <p class="amt"><i class="eg-on"><s class="was">550</s> 275</i><i class="eg-off">550</i><span data-ar=" جنيه"> EGP</span></p>
    <p class="sv eg-on" data-ar="الشهر الأول &middot; ثم 550 جنيهًا شهريًا">First month &middot; then 550 EGP / month</p>
    <p class="sv eg-off" data-ar="550 جنيهًا شهريًا">550 EGP / month</p>
   </div>
-  <div class="card plan best">
+  <div class="card plan pick" role="radio" tabindex="0" aria-checked="false" data-plan="Annual">
    <span class="tag" data-ar="الأفضل قيمة">Best value</span>
    <h3 data-ar="سنوي">Annual</h3>
    <p class="amt"><i class="eg-on"><s class="was">5,500</s> 2,750</i><i class="eg-off">5,500</i><span data-ar=" جنيه"> EGP</span></p>
@@ -288,10 +299,8 @@ html{scroll-padding-top:84px}
    <form id="egForm" action="https://formsubmit.co/" method="POST" enctype="multipart/form-data">
     <label><span data-ar="البريد الإلكتروني">Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
     <label><span data-ar="اسم أو رقم موبايل صاحب التحويل">Name or mobile number of the sender</span><input type="text" name="payer" required placeholder="01xxxxxxxxx"></label>
-    <div class="opts" role="radiogroup">
-     <label><input type="radio" name="plan" value="Monthly" checked><span data-ar="شهري">Monthly</span></label>
-     <label><input type="radio" name="plan" value="Annual"><span data-ar="سنوي">Annual</span></label>
-    </div>
+    <input type="hidden" name="plan" id="egPlan" value="Monthly">
+    <p class="eg-sel"><span data-ar="الخطة المختارة:">Selected plan:</span> <b id="egSelV"></b></p>
     <label><span data-ar="لقطة شاشة للتحويل (اختياري)">Screenshot of the transfer (optional)</span><input type="file" name="screenshot" id="egFile" accept="image/*"></label>
     <input type="hidden" name="amount_egp" id="egAmount" value="">
     <input type="hidden" name="promo_code" id="egPromoField" value="JASCHORD26">
@@ -390,6 +399,21 @@ html{scroll-padding-top:84px}
   var l = lang==='ar'?'en':'ar'; apply(l); try{localStorage.setItem(KEY,l)}catch(e){}
  });
  sync(); f.addEventListener('change', sync);
+ var planIn=document.getElementById('egPlan'), picks=document.querySelectorAll('#egypt .pick');
+ function selText(){
+  var a=planIn.value==='Annual', n=amount().toLocaleString('en-US');
+  document.getElementById('egSelV').textContent = lang==='ar' ? (a?'سنوي':'شهري')+' \u00b7 '+n+' جنيه' : planIn.value+' \u00b7 '+n+' EGP';
+ }
+ picks.forEach(function(c){
+  function choose(){
+   picks.forEach(function(x){ x.classList.toggle('sel',x===c); x.setAttribute('aria-checked',x===c?'true':'false'); });
+   planIn.value=c.getAttribute('data-plan'); sync(); selText();
+  }
+  c.addEventListener('click',choose);
+  c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); choose(); } });
+ });
+ selText();
+ var _apply=apply; apply=function(l){ _apply(l); selText(); };
  document.getElementById('vfCopy').addEventListener('click', function(){
   var b=this, t=document.getElementById('vfNum').textContent.trim(), o=b.innerHTML;
   function done(){ b.textContent = lang==='ar'?'تم النسخ':'Copied'; setTimeout(function(){b.innerHTML=o},1600) }
